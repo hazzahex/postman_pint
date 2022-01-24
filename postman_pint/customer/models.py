@@ -11,6 +11,7 @@ class Customer(models.Model):
     username = models.CharField(max_length=100, null=False)
     first_name = models.CharField(max_length=100, null=False)
     last_name = models.CharField(max_length=100, null=False)
+    credits = models.IntegerField(default=0)
 
     def __str__(self):
         return f"{self.username}"

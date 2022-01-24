@@ -36,6 +36,7 @@ INSTALLED_APPS = [
     'customer.apps.CustomerConfig',
     'pints.apps.PintsConfig',
     'django.contrib.auth',
+    'crispy_forms',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
@@ -127,3 +128,22 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
 DEFAULT_INSTITUTION_NAME = "Taphouse"
+
+DEFAULT_SHARE_URL = 'http://www.google.co.uk/'
+
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
+LOGIN_REDIRECT_URL = 'home'
+LOGIN_URL = 'login'
+
+CRISPY_CLASS_CONVERTERS = {
+    'textinput': "form-control cst__radius bg-dark text-primary",
+    'urlinput': "form-control cst__radius",
+    'numberinput': "form-control cst__radius",
+    'emailinput': "form-control cst__radius bg-dark text-primary",
+    'dateinput': "form-control cst__radius",
+    'textarea': "form-control cst__radius bg-dark text-primary",
+    'passwordinput': "form-control cst__radius bg-dark text-primary",
+    'select': "form-control cst__radius",
+}
+

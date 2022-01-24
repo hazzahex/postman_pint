@@ -1,0 +1,44 @@
+{% extends "customer/base.html" %}
+{% block content %}
+<div class="mt-5 w-100">
+    <div class="h2 text-light">Dashboard</div>
+    <div class="container align-middle justify-content-center text-light mt-5 border border-light rounded"
+         style="max-width: 400px;">
+        <div class="h3 text-light">Customers</div>
+        <div class="card p-3 m-2 border border-light rounded bg-dark">
+            {% for customer in customers %}
+            <div class="card m-2 p-3 border border-light rounded bg-dark">
+                <div class="h4 text-primary">{{ customer.username }}</div>
+                    <div class="text-primary">{{ customer.first_name }} {{ customer.last_name }}</div>
+            </div>
+            {% endfor %}
+        </div>
+        <div class="h3 text-light">Institutions</div>
+        <div class="card p-3 m-2 border border-light rounded bg-dark">
+            {% for institution in institutions %}
+            <div class="card m-2 p-3 border border-light rounded bg-dark">
+                <div class="h4 text-primary">{{ institution.name }}</div>
+            </div>
+            {% endfor %}
+        </div>
+        <div class="h3 text-light">Bartenders</div>
+        <div class="card p-3 m-2 border border-light rounded bg-dark">
+            {% for bartender in bartenders %}
+            <div class="card m-2 p-3 border border-light rounded bg-dark">
+                <div class="h4 text-primary">{{ bartender.manager.username }}</div>
+            </div>
+            {% endfor %}
+        </div>
+        <div class="h3 text-light">Pints</div>
+        <div class="card p-3 m-2 border border-light rounded bg-dark">
+            {% for pint in pints %}
+            <div class="card m-2 p-3 border border-light rounded bg-dark">
+                <div class="h4 text-primary">Sender: {{ pint.sender.username }}</div>
+                <div class="h4 text-primary">Receiver: {{ pint.receiver.username }}</div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+{% endblock content %}
