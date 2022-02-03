@@ -5,15 +5,15 @@
     {% for pint in customer_pints %}
     <div class="card p-3 m-3 border border-light rounded">
         {{ pint }}
-        <div class="text-primary">{{ pint.share_url }}</div>
+        <div class="text-danger">{{ pint.share_url }}</div>
         {% if pint.receiver %}
         <button type="button" class="btn btn-block btn-danger mt-3 disabled">Pint used</button>
         {% else %}
-        <button type="button" class="btn btn-block btn-primary mt-3">Post pint</button>
+        <button type="button" class="btn btn-block btn-danger mt-3">Post pint</button>
         {% endif %}
     </div>
     {% endfor %}
-    <a href="{% url 'home' %}" class="btn btn-block btn-primary mt-3">Home</a>
+    <a href="{% url 'home' %}" class="btn btn-block btn-danger mt-3">Home</a>
 </div>
 
 {% endblock content %}

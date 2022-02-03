@@ -1,0 +1,117 @@
+{% extends "customer/base.html" %}
+{% block content %}
+
+<div class="mt-5 text-center w-100 p-3">
+    <div class="h2 text-danger">Postman Pint</div>
+    <div class="pshadow container align-middle justify-content-center text-light text-light mt-5 border border-light rounded">
+        <div class="mt-2 h3 text-light">Customers</div>
+    </div>
+    <ul class="pshadow list-group mt-4 rounded bg-dark">
+        {% for customer in customers %}
+        {% if user.username == customer.user.username %}
+        <li class="list-group-item bg-danger border-light text-light">
+            <div class="d-flex">
+                <div class="text-light">{{ customer.user.username }}</div>
+                <div class="ml-auto pl-3 pr-3 rounded bg-dark text-light">{{ customer.credits }}</div>
+            </div>
+        </li>
+        {% else %}
+        <li class="list-group-item bg-dark border-light text-light">
+            <div class="d-flex">
+                <div class="text-danger">{{ customer.user.username }}</div>
+                <div class="ml-auto pl-3 pr-3 rounded bg-danger">{{ customer.credits }}</div>
+            </div>
+        </li>
+        {% endif %}
+        {% endfor %}
+    </ul>
+
+
+    <div class="pshadow container align-middle justify-content-center text-light text-light mt-5 border border-light rounded">
+        <div class="mt-2 h3 text-light">Institutions</div>
+    </div>
+    {% if institutions %}
+    <ul class="list-group mt-4 rounded bg-dark">
+        {% for institution in institutions %}
+        <li class="list-group-item bg-dark border-light text-light">
+            <div class="d-flex">
+                <div class="text-danger">{{ institution.name }}</div>
+            </div>
+        </li>
+        {% endfor %}
+    </ul>
+    {% else %}
+    <ul class="pshadow list-group mt-4 rounded bg-dark">
+        <li class="list-group-item bg-dark border-light text-light">
+            <div class="d-flex">
+                <div class="text-danger">No institutions registered</div>
+            </div>
+        </li>
+    </ul>
+    {% endif %}
+
+
+    <div class="pshadow container align-middle justify-content-center text-light text-light mt-5 border border-light rounded">
+        <div class="mt-2 h3 text-light">Bartenders</div>
+    </div>
+    {% if bartenders %}
+    <ul class="pshadow list-group mt-4 rounded bg-dark">
+        {% for bartender in bartenders %}
+        <li class="list-group-item bg-dark border-light text-light">
+            <div class="d-flex">
+                <div class="text-danger">{{ bartender.name }}</div>
+            </div>
+        </li>
+        {% endfor %}
+    </ul>
+    {% else %}
+    <ul class="pshadow list-group mt-4 rounded bg-dark">
+        <li class="list-group-item bg-dark border-light text-light">
+            <div class="d-flex">
+                <div class="text-danger">No bartenders registered</div>
+            </div>
+        </li>
+    </ul>
+    {% endif %}
+
+    <div class="pshadow container align-middle justify-content-center text-light text-light mt-5 border border-light rounded">
+        <div class="mt-2 h3 text-light">Pints</div>
+    </div>
+    {% if pints %}
+    <ul class="pshadow list-group mt-4 rounded bg-dark">
+        {% for pint in pints %}
+        <li class="list-group-item bg-dark border-light text-light">
+            <div class="d-flex">
+                <div class="text-danger mt-1">{{ pint.sender.user.username }}</div>
+                {% if pint.receiver %}
+                <a role="button" class="ml-auto pl-3 pr-3 btn btn-outline-danger disabled">{{ pint.receiver.user.username }}</a>
+                {% else %}
+                <a role="button" class="ml-auto pl-3 pr-3 btn btn-danger" href="{% url 'claim-pint' user.pk %}">Claim
+                    pint</a>
+                {% endif %}
+            </div>
+        </li>
+        {% endfor %}
+    </ul>
+    {% else %}
+    <ul class="pshadow list-group mt-4 rounded bg-dark">
+        <li class="list-group-item bg-dark border-light text-light">
+            <div class="d-flex">
+                <div class="text-danger">No pints purchased</div>
+            </div>
+        </li>
+    </ul>
+    {% endif %}
+    <a role="button" class="btn btn-block btn-danger mt-3" href="{% url 'credit-balance' %}">Credit balance</a>
+    <a role="button" class="btn btn-block btn-danger mt-3" href="{% url 'customer-pints' %}">My pints</a>
+    <a role="button" class="btn btn-block btn-danger mt-3" href="{% url 'received-pints' %}">Received pints</a>
+    {% if user.customer.credits > 0 %}
+    <a role="button" class="btn btn-block btn-danger mt-3" href="{% url 'purchase-pint' %}">Purchase pint</a>
+    {% else %}
+    <a role="button" class="btn btn-block btn-danger mt-3 disabled" href="#">Purchase pint</a>
+    <div class="mt-2 text-danger">Sorry, you don't have any credits to purchase a pint</div>
+    {% endif %}
+
+</div>
+
+{% endblock content %}

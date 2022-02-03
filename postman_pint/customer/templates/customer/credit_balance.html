@@ -2,14 +2,16 @@
 {% block content %}
 <div class="mt-5 w-100">
     <div class="h2 text-light">Current credit balance</div>
-    <div class="text-primary h4">Your current credit balance is {{ user.customer.credits }}</div>
+    <div class="text-danger h4">Your current credit balance is {{ user.customer.credits }}</div>
     {% if user.customer.credits > 0 %}
-    <a role="button" class="btn btn-block btn-primary mt-2" href="{% url 'purchase-pint' %}">Spend credit</a>
-    <a role="button" class="btn btn-block btn-primary mt-2" href="{% url 'purchase-credit' %}">Purchase more credits</a>
+    <a role="button" class="btn btn-block btn-danger mt-2" href="{% url 'purchase-pint' %}">Spend credit</a>
+    <a role="button" class="btn btn-block btn-danger mt-2" href="{% url 'purchase-credit' %}">Purchase more credits</a>
     {% else %}
-    <a role="button" class="btn btn-block btn-primary mt-2" href="{% url 'purchase-credit' %}">Purchase credit</a>
+    <a role="button" class="btn btn-block btn-danger mt-2" href="{% url 'purchase-credit' %}">Purchase credit</a>
 
     {% endif %}
+
+    <a role="button" class="btn btn-block btn-danger mt-2" href="{% url 'home' %}">Home</a>
 </div>
 
 {% endblock content %}

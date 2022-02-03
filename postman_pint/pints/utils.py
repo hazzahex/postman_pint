@@ -36,7 +36,7 @@ def purchase_pint(request):
 
 def get_customer_pints(request):
     customer_pints = Pint.objects.filter(sender=request.user.customer)
-    print(customer_pints)
+    # print(customer_pints)
     if len(customer_pints) == 0:
         print(f'No pints assigned to user')
     return customer_pints

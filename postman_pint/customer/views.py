@@ -28,7 +28,7 @@ def home(request):
         "institutions": bartender_utils.get_institutions,
         "pints": pints_utils.get_pints
     }
-    return render(request, 'customer/home.html', context=context)
+    return render(request, 'customer/home2.html', context=context)
 
 
 @login_required
