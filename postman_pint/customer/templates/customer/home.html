@@ -1,6 +1,6 @@
 {% extends "customer/base.html" %}
 {% block content %}
-<div class="mt-5 w-100">
+<div class="mt-5 w-100 p-3">
     <div class="h2 text-light">Dashboard</div>
     <div class="container align-middle justify-content-center text-light mt-5 border border-light rounded"
          style="max-width: 400px;">
@@ -8,8 +8,8 @@
         <div class="card p-3 m-2 border border-light rounded bg-dark">
             {% for customer in customers %}
             <div class="card m-2 p-3 border border-light rounded bg-dark">
-                <div class="h4 text-primary">{{ customer.username }}</div>
-                    <div class="text-primary">{{ customer.first_name }} {{ customer.last_name }}</div>
+                <div class="h4 text-primary">Username: {{ customer.user.username }}</div>
+                <div class="text-primary">Credits: {{ customer.credits }}</div>
             </div>
             {% endfor %}
         </div>
@@ -33,12 +33,30 @@
         <div class="card p-3 m-2 border border-light rounded bg-dark">
             {% for pint in pints %}
             <div class="card m-2 p-3 border border-light rounded bg-dark">
-                <div class="h4 text-primary">Sender: {{ pint.sender.username }}</div>
-                <div class="h4 text-primary">Receiver: {{ pint.receiver.username }}</div>
+                <div class="h4 text-primary">Sender: {{ pint.sender.user.username }}</div>
+                <div class="h4 text-primary">Receiver: {{ pint.receiver.user.username }}</div>
+                {% if pint.receiver %}
+                <a role="button" class="btn btn-danger m-2 disabled" href="#">Pint claimed</a>
+                {% else %}
+                <a role="button" class="btn btn-primary m-2" href="{% url 'claim-pint' user.pk %}">Claim pint</a>
+                {% endif %}
             </div>
             {% endfor %}
         </div>
     </div>
+    <a role="button" class="btn btn-block btn-primary m-3" href="{% url 'credit-balance' %}">Credit balance</a>
+    <a role="button" class="btn btn-block btn-primary m-3" href="{% url 'customer-pints' %}">My pints</a>
+    <a role="button" class="btn btn-block btn-primary m-3" href="{% url 'received-pints' %}">Received pints</a>
+    {% if user.customer.credits > 0 %}
+    <a role="button" class="btn btn-block btn-primary m-3" href="{% url 'purchase-pint' %}">Purchase pint</a>
+    {% else %}
+    <a role="button" class="btn btn-block btn-primary m-3 disabled" href="#">Purchase pint</a>
+    <div class="text-primary">Sorry, you don't have any credits to purchase a pint</div>
+    {% endif %}
 </div>
+{{ customers }}
+{{ pints }}
+{{ bartenders }}
+{{ institutions }}
 
 {% endblock content %}

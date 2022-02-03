@@ -8,13 +8,11 @@ from django.dispatch import receiver
 
 
 class Customer(models.Model):
-    username = models.CharField(max_length=100, null=False)
-    first_name = models.CharField(max_length=100, null=False)
-    last_name = models.CharField(max_length=100, null=False)
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
     credits = models.IntegerField(default=0)
 
     def __str__(self):
-        return f"{self.username}"
+        return f"{self.user.username}"
 
 
 # ensures that when a user is created, they are assigned a new Customer object
@@ -26,5 +24,5 @@ def create_customer(sender, instance, created, **kwargs):
 
 # ensures whenever the User updates their info, the Customer instance is also saved.
 @receiver(post_save, sender=User)
-def save_user_profile(sender, instance, **kwargs):
-    instance.profile.save()
+def save_user_customer(sender, instance, **kwargs):
+    instance.customer.save()
